@@ -7,15 +7,15 @@
 Adafruit_PCD8544 display = Adafruit_PCD8544(7, 6, 5, 4, 3);
 
 // variable declarations
-float voltage = 0;
+float voltage = 0.0;
 int sensorPin = A0;  
-float sensorValue = 0;  
+float sensorValue = 0.0f;  
 
-float vout = 0;
-float vin = 0; //maximum voltage that can be measured is: 8.4 V, for 2 x 18650 batteries
+float vout = 0.0;
+float vin = 0.0; //maximum voltage that can be measured is: 15 V (based on 3 x 18650 batteries: 12.6 V when fully charged)
 
-float R1 = 4100; //fixed values of resistors used in the voltage divider
-float R2 = 5900; 
+float R1 = 2000.0; //fixed values in Ohms of resistors used in the voltage divider
+float R2 = 1000.0; 
  
 int period = 500;
 unsigned long time_now = 0;
@@ -38,12 +38,12 @@ void setup()   {
   
   display.setCursor(0, 5); //set the coordinates to start writing text
   display.print("LOAD:");
-  display.setCursor(40, 15); //set the coordinates to start writing text
+  display.setCursor(45, 15); //set the coordinates to start writing text
   display.print("grams");
 
   display.setCursor(0, 30);
   display.print("BATTERY:");
-  display.setCursor(40, 40);
+  display.setCursor(45, 40);
   display.print("Volts");
 
 }
@@ -68,8 +68,8 @@ void loop() {
 
 float readVoltage()
 {
-   sensorValue = analogRead(sensorPin); //get the integer value between 0 and 1024 which corresponds to 0 V and 5 V, respectively.
-   vout = (sensorValue * 5.0) / 1024.0; //this is the calculated value between 0 and 1024
+   sensorValue = analogRead(sensorPin); //receives the analogue voltage value between 0 V and 5 V and converts it using ADC.
+   vout = (sensorValue * 5.0) / 1024.0; //converts the discrete value between 0 and 1024 into a corresponding voltage
    vin = vout / (R2/(R1+R2)); //this is the formula to find the actual input battery voltage
    return vin;
 }
