@@ -17,7 +17,7 @@ float vin = 0; //maximum voltage that can be measured is: 8.4 V, for 2 x 18650 b
 float R1 = 4100; //fixed values of resistors used in the voltage divider
 float R2 = 5900; 
  
-int period = 1000;
+int period = 500;
 unsigned long time_now = 0;
 
 
@@ -37,14 +37,14 @@ void setup()   {
   display.setTextColor(BLACK, WHITE);
   
   display.setCursor(0, 5); //set the coordinates to start writing text
-  display.print("BATTERY:");
+  display.print("LOAD:");
   display.setCursor(40, 15); //set the coordinates to start writing text
-  display.print("Volts");
+  display.print("grams");
 
   display.setCursor(0, 30);
-  display.print("LOAD:");
+  display.print("BATTERY:");
   display.setCursor(40, 40);
-  display.print("grams");
+  display.print("Volts");
 
 }
 
@@ -55,11 +55,11 @@ void loop() {
         time_now = millis();
         voltage = readVoltage();
         
-        draw_value(12, 15, voltage);  // print voltage every 1 second on LCD
-        Serial.println(voltage);  //print voltage every 1 second on Serial Monitor
+        //draw_value(12, 15, load);  // print voltage every 1 second on LCD
+        //Serial.println(load);  //print voltage every 1 second on Serial Monitor
         
-        //draw_value(12, 40, load);  // print load every 1 second on LCD
-        //Serial.println(load);  //print load every 1 second on Serial Monitor
+        draw_value(12, 40, voltage);  // print load every 1 second on LCD
+        Serial.println(voltage);  //print load every 1 second on Serial Monitor
         
     }
   
